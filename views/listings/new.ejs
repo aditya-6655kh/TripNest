@@ -1,0 +1,69 @@
+<% layout("layouts/boilerplate") %>
+<body>
+  <div class="form-container">
+    <h3>Create New Listing</h3>
+    <form action="/listings" method="POST">
+      <label for="title" class="form-label">Title:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        name="listing[title]"
+        required
+      /><br />
+
+      <label for="description" class="form-label">Description:</label>
+      <textarea
+        id="description"
+        class="form-control"
+        name="listing[description]"
+        required
+      ></textarea
+      ><br />
+
+      <label for="price" class="form-label">Price:</label>
+      <input
+        type="number"
+        class="form-control"
+        id="price"
+        name="listing[price]"
+        required
+      /><br />
+
+      <label for="location" class="form-label">Location:</label>
+      <input
+        type="text"
+        id="location"
+        name="listing[location]"
+        class="form-control"
+        required
+      /><br />
+
+      <label for="country" class="form-label">Country:</label>
+      <input
+        type="text"
+        id="country"
+        name="listing[country]"
+        class="form-control"
+        required
+      /><br />
+
+      <label for="image" class="form-label">Image File Name:</label>
+      <input
+        type="text"
+        id="fileName"
+        name="listing[image][fileName]"
+        class="form-control"
+      /><br />
+      <label for="image" class="form-label">Image URL:</label>
+      <input
+        type="text"
+        id="image"
+        name="listing[image][url]"
+        class="form-control"
+      /><br />
+
+      <button type="submit" class="btn btn-primary">Create Listing</button>
+    </form>
+  </div>
+</body>

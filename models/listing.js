@@ -8,11 +8,15 @@ const listingSchema = new Schema({
   location: { type: String, required: true },
   country: { type: String, required: true },
   image: {
-    fileName: String,
+    fileName: { type: String, default: "default-image.jpg" },
     url: {
       type: String,
-      default: "clg.jpg",
-      set: (v) => (v === "" ? "clg.jpg" : v),
+      default:
+        "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1470&q=80",
+      set: (v) =>
+        v === ""
+          ? "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1470&q=80"
+          : v,
     },
   },
 });

@@ -1,0 +1,27 @@
+{
+  "name": "tripnest",
+  "version": "1.0.0",
+  "description": "A small and lightweight version of AirBnB for learning purpose.",
+  "homepage": "https://github.com/aditya-6655kh/TripNest#readme",
+  "bugs": {
+    "url": "https://github.com/aditya-6655kh/TripNest/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aditya-6655kh/TripNest.git"
+  },
+  "license": "MIT",
+  "author": "Aditya",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "ejs-mate": "^4.0.0",
+    "express": "^5.1.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^8.19.0"
+  }
+}
