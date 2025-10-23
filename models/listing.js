@@ -8,7 +8,11 @@ const listingSchema = new Schema({
   location: { type: String, required: true },
   country: { type: String, required: true },
   image: {
-    fileName: { type: String, default: "default-image.jpg" },
+    fileName: {
+      type: String,
+      default: "default-image.jpg",
+      set: (v) => (v === "" ? "default-image.jpg" : v),
+    },
     url: {
       type: String,
       default:
