@@ -2,14 +2,13 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const mongoose = require("mongoose");
-const Listing = require("./models/listing");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const wrapAsync = require("./utils/wrapAsync");
 const ExpressError = require("./utils/expressError");
-const { listingSchema, reviewSchema } = require("./schema.js");
-const Review = require("./models/review");
+const listings = require("./routes/listing");
+const reviews = require("./routes/review");
+
 
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "/public")));
@@ -27,129 +26,12 @@ async function main() {
   await mongoose.connect("mongodb://127.0.0.1:27017/tripNest");
 }
 
-const validateListing = (req, res, next) => {
-  const { error } = listingSchema.validate(req.body);
-  if (error) {
-    throw new ExpressError(
-      400,
-      error.details.map((el) => el.message).join(",")
-    );
-  } else {
-    next();
-  }
-};
-
-const validateReview = (req, res, next) => {
-  const { error } = reviewSchema.validate(req.body);
-  if (error) {
-    throw new ExpressError(
-      400,
-      error.details.map((el) => el.message).join(",")
-    );
-  } else {
-    next();
-  }
-};
-
 app.get("/", (req, res) => {
   res.send("hello world");
 });
 
-// index route to display all listings
-app.get("/listings", async (req, res) => {
-  const listings = await Listing.find({});
-  res.render("listings/index.ejs", { listings });
-});
-
-// new route to display form for creating a new listing
-app.get("/listings/new", (req, res) => {
-  res.render("listings/new.ejs");
-});
-
-// create route to add a new listing to the database
-app.post(
-  "/listings",
-  validateListing,
-  wrapAsync(async (req, res) => {
-    const data = req.body.listing;
-    const newListing = new Listing(data);
-    await newListing.save();
-    res.redirect(`/listings/${newListing._id}`);
-  })
-);
-
-// edit route to display form for editing a listing
-app.get(
-  "/listings/:id/edit",
-  wrapAsync(async (req, res) => {
-    const { id } = req.params;
-    const listing = await Listing.findById(id);
-    res.render("listings/edit.ejs", { listing });
-  })
-);
-
-app.put(
-  "/listings/:id",
-  validateListing,
-  wrapAsync(async (req, res) => {
-    const { id } = req.params;
-    const data = req.body.listing;
-    await Listing.findByIdAndUpdate(id, data, {
-      runValidators: true,
-      new: true,
-    });
-    res.redirect(`/listings/${id}`);
-  })
-);
-
-// delete route
-app.delete(
-  "/listings/:id",
-  wrapAsync(async (req, res) => {
-    const { id } = req.params;
-    await Listing.findByIdAndDelete(id);
-    res.redirect("/listings");
-  })
-);
-
-// show route to display a single listing
-app.get(
-  "/listings/:id",
-  wrapAsync(async (req, res) => {
-    const { id } = req.params;
-    const listing = await Listing.findById(id).populate("reviews");
-    res.render("listings/show.ejs", { listing });
-  })
-);
-
-app.get("/listings/:id/reviews", (req, res) => {
-  const { id } = req.params;
-  res.render("listings/reviewForm.ejs", { listing: { _id: id } });
-});
-
-app.post(
-  "/listings/:id/reviews",
-  validateReview,
-  wrapAsync(async (req, res) => {
-    const { id } = req.params;
-    const newReview = new Review(req.body.review);
-    const listing = await Listing.findById(id);
-    listing.reviews.push(newReview);
-    await newReview.save();
-    await listing.save();
-    res.redirect(`/listings/${id}`);
-  })
-);
-
-app.delete(
-  "/listings/:id/reviews/:reviewId",
-  wrapAsync(async (req, res) => {
-    const { id, reviewId } = req.params;
-    await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
-    await Review.findByIdAndDelete(reviewId);
-    res.redirect(`/listings/${id}`);
-  })
-);
+app.use("/listings", listings);
+app.use("/listings/:id/reviews", reviews);
 
 app.use((req, res, next) => {
   next(new ExpressError(404, "Page Not Found"));
