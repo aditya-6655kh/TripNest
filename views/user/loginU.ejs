@@ -1,0 +1,29 @@
+<% layout("layouts/boilerplate") %>
+<div class="row">
+  <div class="form-container col-6 mx-auto mt-5 p-4 border rounded-3 shadow">
+    <h2>Welcome Back</h2>
+    <form action="/login" method="POST" novalidate>
+      <div class="form-group mb-3">
+        <label for="username">Username:</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          class="form-control"
+          required
+        />
+      </div>
+      <div class="form-group  mb-3">
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-control"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Log In</button>
+    </form>
+  </div>
+</div>
