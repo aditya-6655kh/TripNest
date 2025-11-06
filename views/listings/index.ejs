@@ -1,31 +1,29 @@
 <% layout("layouts/boilerplate") %>
-<body>
-  <h2>TripNest</h2>
-  <!-- <form action="/listings/new" method="GET">
+<h2>TripNest</h2>
+<!-- <form action="/listings/new" method="GET">
     <button type="submit">Create New Listing</button>
   </form> -->
-  <div class="listings row row-cols-1 row-cols-lg-3 g-4">
-    <% listings.forEach(listing => { %>
-    <a href="/listings/<%= listing._id %>" class="listing-link">
-      <div class="card listing-card">
-        <img
-          src="<%= listing.image.url %>"
-          class="card-img-top"
-          alt="<%= listing.image.filename %>"
-          style="height: 18rem"
-        />
-        <div class="card-img-overlay"></div>
-        <div class="card-body">
-          <p class="card-text">
-            <strong><%= listing.title %></strong> <br />
-            <!-- <%= listing.description %><br />
+<div class="listings row row-cols-1 row-cols-lg-3 g-4">
+  <% listings.forEach(listing => { %>
+  <a href="/listings/<%= listing._id %>" class="listing-link">
+    <div class="card listing-card">
+      <img
+        src="<%= listing.image.url %>"
+        class="card-img-top"
+        alt="<%= listing.image.filename %>"
+        style="height: 18rem"
+      />
+      <div class="card-img-overlay"></div>
+      <div class="card-body">
+        <p class="card-text">
+          <strong><%= listing.title %></strong> <br />
+          <!-- <%= listing.description %><br />
           <%= listing.location %>, <%= listing.country %><br /> -->
-            <strong>Price:</strong> ₹<%= listing.price.toLocaleString("en-IN")
-            %> / night<br />
-          </p>
-        </div>
+          <strong>Price:</strong> ₹<%= listing.price.toLocaleString("en-IN") %>
+          / night<br />
+        </p>
       </div>
-    </a>
-    <% }) %>
-  </div>
-</body>
+    </div>
+  </a>
+  <% }) %>
+</div>

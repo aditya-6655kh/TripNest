@@ -1,37 +1,38 @@
 <% layout("layouts/boilerplate") %>
-<body>
-  <div class="row">
-    <div class="col-8 offset-3 mt-3">
-      <h2><%= listing.title %></h2>
-    </div>
-    <div class="col-6 offset-3">
-      <div class="card listing-card">
-        <img
-          src="<%= listing.image.url %>"
-          class="card-img-top show-img"
-          alt="<%= listing.image.filename %>"
-        />
-        <div class="card-body">
-          <p class="card-text">
+<div class="row">
+  <div class="col-8 offset-3 mt-3">
+    <h2><%= listing.title %></h2>
+  </div>
+  <div class="col-6 offset-3">
+    <div class="card listing-card">
+      <img
+        src="<%= listing.image.url %>"
+        class="card-img-top show-img"
+        alt="<%= listing.image.filename %>"
+      />
+      <div class="card-body">
+        <p class="card-text">
           <br />
-            <%= listing.description %> <br />
-            <strong>Price: </strong>₹<%= listing.price.toLocaleString("en-IN")
-            %> <br />
-            <strong>Location:</strong> <%= listing.location %>, <%=
-            listing.country %>
-          </p>
-        </div>
+          <%= listing.description %> <br />
+          <strong>Price: </strong>₹<%= listing.price.toLocaleString("en-IN") %>
+          <br />
+          <strong>Location:</strong> <%= listing.location %>, <%=
+          listing.country %>
+        </p>
       </div>
+    </div>
   </div>
   <div class="d-flex justify-content-center gap-2 mt-3">
-      <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary">
-        Edit Listing
-      </a>
-      <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST" class="m-0">
-        <button type="submit" class="btn btn-danger">
-          Delete Listing
-        </button>
-      </form>
+    <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary">
+      Edit Listing
+    </a>
+    <form
+      action="/listings/<%= listing._id %>?_method=DELETE"
+      method="POST"
+      class="m-0"
+    >
+      <button type="submit" class="btn btn-danger">Delete Listing</button>
+    </form>
   </div>
 
   <div>
@@ -46,22 +47,27 @@
   <div class="col-6 offset-3 mt-3">
     <h3>Reviews</h3>
     <% if (listing.reviews.length === 0) { %>
-      <p>No reviews yet.</p>
+    <p>No reviews yet.</p>
     <% } else { %>
-        <div class="row">
-          <% listing.reviews.forEach(function(review) { %>
-          <div class="card mb-3 col-5 me-3"> 
-            <div class="card-body">
-              <h5 class="card-title">Some user</h5>
-              <p class="card-text"><%= review.comment %></p>
-              <small class="text-muted">Rating: <%= review.rating %></small>
-              <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
-                <button type="submit" class="btn btn-link btn-sm p-0 mt-2">Delete Review</button>
-              </form>
-            </div>
-          </div>
-        <% }); %>
+    <div class="row">
+      <% listing.reviews.forEach(function(review) { %>
+      <div class="card mb-3 col-5 me-3">
+        <div class="card-body">
+          <h5 class="card-title">Some user</h5>
+          <p class="card-text"><%= review.comment %></p>
+          <small class="text-muted">Rating: <%= review.rating %></small>
+          <form
+            action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
+            method="POST"
+          >
+            <button type="submit" class="btn btn-link btn-sm p-0 mt-2">
+              Delete Review
+            </button>
+          </form>
         </div>
+      </div>
+      <% }); %>
+    </div>
     <% } %>
   </div>
-</body>
+</div>

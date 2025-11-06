@@ -6,10 +6,14 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/expressError");
-const listings = require("./routes/listing");
-const reviews = require("./routes/review");
+const listingRouter = require("./routes/listing");
+const reviewRouter = require("./routes/review");
 const session = require("express-session");
 const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/users");
+const userRouter = require("./routes/user");
 
 const sessionConfig = {
   secret: "somethingsecret",
@@ -36,6 +40,13 @@ app.get("/", (req, res) => {
 
 app.use(session(sessionConfig));
 app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser()); 
+
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "/public")));
 app.set("view engine", "ejs");
@@ -50,8 +61,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/listings", listings);
-app.use("/listings/:id/reviews", reviews);
+app.use("/listings", listingRouter);
+app.use("/listings/:id/reviews", reviewRouter);
+app.use("/", userRouter);
 
 app.use((req, res, next) => {
   next(new ExpressError(404, "Page Not Found"));
