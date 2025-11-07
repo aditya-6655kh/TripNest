@@ -22,6 +22,7 @@ async function main() {
 
 async function seedDB() {
   await Listing.deleteMany({});
+  Data.data = Data.data.map((listing) => ({...listing, owner: "690e2191b130a38d3cb390dd"}));
   await Listing.insertMany(Data.data);
 }
 
