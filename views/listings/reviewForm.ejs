@@ -1,23 +1,14 @@
 <% layout("layouts/boilerplate.ejs") %>
 <div class="row">
-  <div class="col-6 offset-3 mt-4">
-    <h3>Add a Review</h3>
+  <div class="form-container col-6 mx-auto mt-5 p-4 border rounded-3 shadow">
+    <h3 class="text-center mb-4">Add a Review</h3>
+
     <form
       action="/listings/<%= listing._id %>/reviews"
       method="POST"
       novalidate
       class="needs-validation"
     >
-      <!-- <div class="mb-3">
-          <label for="author" class="form-label">Your Name</label>
-          <input
-            type="text"
-            class="form-control"
-            id="author"
-            name="review[author]"
-            required
-          />
-        </div> -->
       <div class="mb-3">
         <label for="content" class="form-label">Review</label>
         <textarea
@@ -25,11 +16,13 @@
           id="content"
           name="review[comment]"
           rows="3"
+          placeholder="Write your review here..."
           required
         ></textarea>
-        <div class="invalid-feedback">Please add comment</div>
+        <div class="invalid-feedback">Please add a comment.</div>
       </div>
-      <div class="mb-3">
+
+      <div class="mb-4">
         <label for="reviewRating" class="form-label">Rating</label>
         <select
           name="review[rating]"
@@ -44,8 +37,10 @@
           <option value="4">4 - Good</option>
           <option value="5">5 - Excellent</option>
         </select>
+        <div class="invalid-feedback">Please select a rating.</div>
       </div>
-      <button type="submit" class="btn btn-primary">Submit Review</button>
+
+      <button type="submit" class="btn btn-primary w-100">Submit Review</button>
     </form>
   </div>
 </div>

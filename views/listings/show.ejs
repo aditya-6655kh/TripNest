@@ -22,6 +22,7 @@
       </div>
     </div>
   </div>
+  <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
   <div class="d-flex justify-content-center gap-2 mt-3">
     <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary">
       Edit Listing
@@ -34,6 +35,7 @@
       <button type="submit" class="btn btn-danger">Delete Listing</button>
     </form>
   </div>
+  <% } %>
 
   <div>
     <div class="col-6 offset-3 mt-4">
@@ -53,9 +55,10 @@
       <% listing.reviews.forEach(function(review) { %>
       <div class="card mb-3 col-5 me-3">
         <div class="card-body">
-          <h5 class="card-title">Some user</h5>
+          <h5 class="card-title"><%= review.author.username %></h5>
           <p class="card-text"><%= review.comment %></p>
-          <small class="text-muted">Rating: <%= review.rating %></small>
+          <small class="card-text">Rating: <%= review.rating %></small>
+          <% if (currUser && currUser._id.equals(review.author._id)) { %>
           <form
             action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
             method="POST"
@@ -64,6 +67,7 @@
               Delete Review
             </button>
           </form>
+          <% } %>
         </div>
       </div>
       <% }); %>
