@@ -67,6 +67,14 @@
               Delete Review
             </button>
           </form>
+          <form
+            action="/listings/<%= listing._id %>/reviews/<%= review._id %>/edit"
+            method="GET"
+          >
+            <button type="submit" class="btn btn-link btn-sm p-0 mt-2">
+              Edit Review
+            </button>
+          </form>
           <% } %>
         </div>
       </div>
