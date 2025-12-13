@@ -6,20 +6,26 @@ const Review = require("../models/review");
 const { validateReview, isLoggedIn, isAuthor } = require("../middlewares");
 const reviewController = require("../controllers/reviews");
 
-router.get("/", isLoggedIn, reviewController.index);
+router
+  .route("/")
+  .get(isLoggedIn, reviewController.index)
+  .post(isLoggedIn, validateReview, wrapAsync(reviewController.createReview));
 
-router.post(
-  "/",
-  isLoggedIn,
-  validateReview,
-  wrapAsync(reviewController.createReview)
-);
-
-router.delete(
-  "/:reviewId",
+router.get(
+  "/:reviewId/edit",
   isLoggedIn,
   isAuthor,
-  wrapAsync(reviewController.deleteReview)
+  wrapAsync(reviewController.renderEditForm)
 );
+
+router
+  .route("/:reviewId")
+  .put(
+    isLoggedIn,
+    isAuthor,
+    validateReview,
+    wrapAsync(reviewController.updateReview)
+  )
+  .delete(isLoggedIn, isAuthor, wrapAsync(reviewController.deleteReview));
 
 module.exports = router;

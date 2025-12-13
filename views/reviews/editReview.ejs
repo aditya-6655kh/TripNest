@@ -1,0 +1,48 @@
+<% layout("layouts/boilerplate.ejs") %>
+<div class="row">
+  <div class="form-container col-6 mx-auto mt-5 p-4 border rounded-3 shadow">
+    <h3 class="text-center mb-4">Edit Review</h3>
+
+    <form
+      action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=PUT"
+      method="POST"
+      novalidate
+      class="needs-validation"
+    >
+      <div class="mb-3">
+        <label for="content" class="form-label">Review</label>
+        <textarea
+          class="form-control"
+          id="content"
+          name="review[comment]"
+          rows="3"
+          placeholder="Write your review here..."
+          value="<%= review.comment %>""
+          required
+        ><%= review.comment %></textarea>
+        <div class="invalid-feedback">Please add a comment.</div>
+      </div>
+
+      <div class="mb-4">
+        <label for="reviewRating" class="form-label">Rating</label>
+        <select
+          name="review[rating]"
+          id="reviewRating"
+          class="form-select"
+          value="<%= review.rating %>"
+          required
+        >
+          <option value="" disabled selected>Rate your experience</option>
+          <option value="1">1 - Very Poor</option>
+          <option value="2">2 - Poor</option>
+          <option value="3">3 - Average</option>
+          <option value="4">4 - Good</option>
+          <option value="5">5 - Excellent</option>
+        </select>
+        <div class="invalid-feedback">Please select a rating.</div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Submit Review</button>
+    </form>
+  </div>
+</div>
