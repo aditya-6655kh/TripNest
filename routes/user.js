@@ -6,18 +6,19 @@ const passport = require("passport");
 const { savedRedirectUrl } = require("../middlewares");
 const userController = require("../controllers/users.js");
 
-router.get("/register", userController.renderRegister);
+router
+  .route("/register")
+  .get(userController.renderRegister)
+  .post(wrapAsync(userController.registerUser));
 
-router.post("/register", wrapAsync(userController.registerUser));
-
-router.get("/login", userController.renderLogin);
-
-router.post(
-  "/login",
-  savedRedirectUrl,
-  wrapAsync(userController.loginUser),
-  wrapAsync(userController.postLoginRedirect)
-);
+router
+  .route("/login")
+  .get(userController.renderLogin)
+  .post(
+    savedRedirectUrl,
+    wrapAsync(userController.loginUser),
+    wrapAsync(userController.postLoginRedirect)
+  );
 
 router.get("/logout", userController.logoutUser);
 
