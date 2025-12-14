@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const wrapAsync = require("../utils/wrapAsync");
 const listings = require("../controllers/listings");
+const multer = require("multer");
+const { storage } = require("../cloudConfig");
+const upload = multer({ storage });
 
 const {
   isLoggedIn,
@@ -12,7 +15,12 @@ const {
 router
   .route("/")
   .get(wrapAsync(listings.index))
-  .post(isLoggedIn, validateListing, wrapAsync(listings.createListings));
+  .post(
+    isLoggedIn,
+    validateListing,
+    upload.single("listing[image]"),
+    wrapAsync(listings.createListings)
+  );
 
 // new route to display form for creating a new listing
 router.get("/new", isLoggedIn, listings.renderNewForm);
@@ -23,6 +31,7 @@ router
     isLoggedIn,
     validateListing,
     validateOwnership,
+    upload.single("listing[image]"),
     wrapAsync(listings.updateListing)
   )
   .get(wrapAsync(listings.showListing))

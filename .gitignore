@@ -4,3 +4,4 @@ node_modules/
 clg.jpg
 requirements.txt
 requirements
+.env

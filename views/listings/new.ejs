@@ -1,10 +1,18 @@
 <% layout("layouts/boilerplate") %>
 
 <div class="row">
-  <div class="form-container col-6 mx-auto mt-5 p-4 border rounded-3 shadow mb-5">
+  <div
+    class="form-container col-6 mx-auto mt-5 p-4 border rounded-3 shadow mb-5"
+  >
     <h3 class="text-center mb-4">Create New Listing</h3>
 
-    <form action="/listings" method="POST" novalidate class="needs-validation">
+    <form
+      action="/listings"
+      method="POST"
+      novalidate
+      class="needs-validation"
+      enctype="multipart/form-data"
+    >
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
         <input
@@ -71,24 +79,14 @@
       </div>
 
       <div class="mb-3">
-        <label for="fileName" class="form-label">Image File Name</label>
-        <input
-          type="text"
-          id="fileName"
-          name="listing[image][fileName]"
-          class="form-control"
-          placeholder="Enter image file name"
-        />
-      </div>
-
-      <div class="mb-3">
         <label for="image" class="form-label">Image URL</label>
         <input
-          type="text"
+          type="file"
           id="image"
-          name="listing[image][url]"
+          name="listing[image]"
           class="form-control"
           placeholder="Enter image URL"
+          required
         />
       </div>
 
