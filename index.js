@@ -17,7 +17,7 @@ const User = require("./models/users");
 const userRouter = require("./routes/user");
 
 const sessionConfig = {
-  secret: "somethingsecret",
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
