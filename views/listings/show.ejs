@@ -9,6 +9,7 @@
         src="<%= listing.image.url %>"
         class="card-img-top show-img"
         alt="<%= listing.image.filename %>"
+        style="object-fit: cover"
       />
       <div class="card-body">
         <p class="card-text">
@@ -22,7 +23,7 @@
       </div>
     </div>
   </div>
-  <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
+  <% if (currUser && currUser.equals(listing.owner)) { %>
   <div class="d-flex justify-content-center gap-2 mt-3">
     <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary">
       Edit Listing
@@ -46,11 +47,10 @@
     </div>
   </div>
 
+  <% if (listing.reviews.length > 0) { %>
   <div class="col-6 offset-3 mt-3">
     <h3>Reviews</h3>
-    <% if (listing.reviews.length === 0) { %>
-    <p>No reviews yet.</p>
-    <% } else { %>
+
     <div class="row">
       <% listing.reviews.forEach(function(review) { %>
       <div class="card mb-3 col-5 me-3">

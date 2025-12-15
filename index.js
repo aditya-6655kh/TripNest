@@ -35,9 +35,9 @@ async function main() {
   await mongoose.connect("mongodb://127.0.0.1:27017/tripNest");
 }
 
-app.get("/", (req, res) => {
-  res.send("hello world");
-});
+// app.get("/", (req, res) => {
+//   res.send("hello world");
+// });
 
 app.use(session(sessionConfig));
 app.use(flash());

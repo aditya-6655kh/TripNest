@@ -1,9 +1,6 @@
 <% layout("layouts/boilerplate") %>
 <h2>TripNest</h2>
-<!-- <form action="/listings/new" method="GET">
-    <button type="submit">Create New Listing</button>
-  </form> -->
-<div class="listings row row-cols-1 row-cols-lg-3 g-4">
+<div class="listings row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-lg-4 g-4">
   <% listings.forEach(listing => { %>
   <a href="/listings/<%= listing._id %>" class="listing-link">
     <div class="card listing-card">
