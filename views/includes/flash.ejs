@@ -1,23 +1,18 @@
-<div class="flash-message">
-  <% if (success && success.length > 0) { %>
-  <div class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
-    <%= success %>
-    <button
-      type="button"
-      class="btn-close"
-      data-bs-dismiss="alert"
-      aria-label="Close"
-    ></button>
-  </div>
-  <% } %> <% if (error && error.length > 0) { %>
-  <div class="alert alert-danger alert-dismissible fade show col-6 offset-3" role="alert">
-    <%= error %>
-    <button
-      type="button"
-      class="btn-close"
-      data-bs-dismiss="alert"
-      aria-label="Close"
-    ></button>
-  </div>
-  <% } %>
+<div class="flash-message" 
+     style="position: fixed; top: 6rem; left: 50%; transform: translateX(-50%); z-index: 1050; width: 40%;">
+    
+    <% if (success && success.length > 0) { %>
+    <div class="alert alert-success alert-dismissible fade show shadow-lg" role="alert">
+        <%= success %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } %> 
+    
+    <% if (error && error.length > 0) { %>
+    <div class="alert alert-danger alert-dismissible fade show shadow-lg" role="alert">
+        <%= error %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } %>
+
 </div>
