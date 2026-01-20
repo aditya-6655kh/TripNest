@@ -10,6 +10,7 @@ const ExpressError = require("./utils/expressError");
 const listingRouter = require("./routes/listing");
 const reviewRouter = require("./routes/review");
 const session = require("express-session");
+const connectMongo = require("connect-mongo"); 
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -27,12 +28,14 @@ const sessionConfig = {
   },
 };
 
+const db_url = process.env.ATLAS_URL;
+
 main()
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/tripNest");
+  await mongoose.connect(db_url);
 }
 
 // app.get("/", (req, res) => {
